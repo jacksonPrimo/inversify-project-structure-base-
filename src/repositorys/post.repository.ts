@@ -1,26 +1,36 @@
 import { injectable } from "inversify";
-interface Post {
-  title: string;
-}
+import { PostDto } from "../dtos/post.dto";
+import { PostInterface } from "../interfaces/postInterface";
+
 @injectable()
-export class PostRepositoryImpl {
+export class PostRepository implements PostInterface{
+    private posts: Array<PostDto>;
+    private id: number;
+    constructor(){
+        this.posts = []
+        this.id = 0
+    } 
     findAll() {
-        console.log('something')
+        return this.posts
     }
 
-    create(post: Post) {
-        console.log('something')
+    create(post: PostDto) {
+        this.posts.push({...post, id: this.id})
+        this.id++
     }
 
     findById(id: number) {
-        console.log('something')
+        return this.posts.find(post=>post.id == id)
     }
 
-    update(id: number, post: Post) {
-        console.log('something')
+    update(id: number, post: PostDto) {
+        const index = this.posts.findIndex(post=>post.id == id)
+        this.posts.splice(index, 1)
+        this.posts[index] = post
     }
 
     delete(id: number) {
-        console.log('something')
+        const index = this.posts.findIndex(post=>post.id == id)
+        this.posts.splice(index, 1)
     }
 }

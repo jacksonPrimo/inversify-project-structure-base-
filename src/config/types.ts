@@ -1,5 +1,5 @@
 const TYPES = {
-  PostRepositoryImpl: Symbol('PostRepositoryImpl'),
+  PostInterface: Symbol('PostInterface'),
 };
 
 export default TYPES;

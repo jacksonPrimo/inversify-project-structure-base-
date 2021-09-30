@@ -1,14 +1,13 @@
-// import * as express from 'express';
 import { Request, Response } from 'express';
 import { inject } from 'inversify';
 import { interfaces, controller, httpGet, httpPost, request, response } from "inversify-express-utils";
 import TYPES from '../config/types';
-import { PostRepositoryImpl } from '../repositorys/post.repository';
+import { PostRepository } from '../repositorys/post.repository';
 
 @controller("/posts")
 export class PostController implements interfaces.Controller {
   constructor(
-    @inject(TYPES.PostRepositoryImpl) private postRepository: PostRepositoryImpl
+    @inject(TYPES.PostInterface) private postRepository: PostRepository
   ){}
   @httpGet("/")
   public async index (@request() req: Request, @response() res: Response) {
